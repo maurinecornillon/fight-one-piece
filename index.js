@@ -13,6 +13,7 @@ class Players {
     this.speedy = speedy;
     this.height = 150;
     this.width = 50;
+    this.health = 100;
     // CREATE ATTACK
     this.attackBox = {
       position: {
@@ -44,6 +45,7 @@ class Players {
   }
   update() {
     this.draw();
+    // POSITION ATTACKBOX
     this.attackBox.position.x = this.position.x - this.attackBox.offset.x;
     this.attackBox.position.y = this.position.y;
     // MOUVEMENT & VITESSE PLAYERS
@@ -56,17 +58,20 @@ class Players {
       this.speedy.y += gravity;
     }
   }
+  // WHEN THIS FUNCTION IS CALL, ITS TRUE
   attack() {
     this.attackActivate = true;
   }
 }
 
+// PLAYERONE
 const playerOne = new Players({
   position: { x: 10, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 0, y: 0 },
 });
 
+//PLAYERTWO
 const playerTwo = new Players({
   position: { x: 800, y: 0 },
   speedy: { x: 0, y: 0 },
@@ -81,7 +86,7 @@ function animate() {
   playerOne.update();
   playerTwo.update();
 
-  // ATTACK
+  // ATTACK PLAYERONE AGAIN PLAYERTWO
   if (
     playerOne.attackBox.position.x + playerOne.attackBox.width >=
       playerTwo.position.x &&
@@ -91,8 +96,12 @@ function animate() {
     playerOne.attackBox.position.y <= playerTwo.position.y + playerTwo.height &&
     playerOne.attackActivate
   ) {
-    console.log("touch");
+    playerTwo.health -= 5;
+    document.querySelector("#playerTwoHealth").style.width =
+      playerTwo.health + "% ";
   }
+
+  // ATTACK PLAYERTWO AGAIN PLAYERONE
   if (
     playerTwo.attackBox.position.x + playerTwo.attackBox.width >=
       playerOne.position.x &&
@@ -102,11 +111,25 @@ function animate() {
     playerTwo.attackBox.position.y <= playerOne.position.y + playerOne.height &&
     playerTwo.attackActivate
   ) {
-    console.log("playerTwo touch");
+    playerTwo.health -= 5;
+    document.querySelector("#playerOneHealth").style.width =
+      playerTwo.health + "% ";
+  }
+
+  // GAME OVER AND WIN
+  if (playerOne.health === 0) {
+    console.log("PLAYERONE LOST");
+    console.log("PLAYERTWO WIN");
+  }
+  if (playerTwo.health === 0) {
+    console.log("PLAYERTWO LOST");
+    console.log("PLAYERONE WIN");
   }
 }
 
 animate();
+
+// KEY
 
 window.addEventListener("keydown", (event) => {
   switch (event.key) {

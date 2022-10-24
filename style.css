@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.containertwo {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 30px;
+}
+.playerOneHealth {
+  background-color: yellow;
+  height: 30px;
+  width: 100%;
+}
+
+.timer {
+  background-color: red;
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+.playerTwoHealth {
+  background-color: yellow;
+  height: 30px;
+  width: 100%;
+}
+
+.absolute {
+  position: absolute;
+  background: blue;
+}
+
+.relative {
+  position: relative;
+  height: 30px;
+  width: 100%;
+}
+
+.absolute2 {
+  position: absolute;
+  background: blue;
+}
+
+.relative2 {
+  position: relative;
+  height: 30px;
+  width: 100%;
+}
