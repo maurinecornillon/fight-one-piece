@@ -16,11 +16,57 @@
   width: 100%;
   padding: 30px;
 }
+
+/* PLAYERONE HEALTH BAR */
+
 .playerOneHealth {
   background-color: yellow;
+  border: red solid 5px;
   height: 30px;
   width: 100%;
 }
+
+.barHealthOne {
+  position: absolute;
+  background: blue;
+  border: red solid 5px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+}
+
+.relative2 {
+  position: relative;
+  height: 30px;
+  width: 100%;
+}
+
+/* PLAYERTWO HEALTH BAR */
+
+.playerTwoHealth {
+  background-color: yellow;
+  border: red solid 5px;
+  height: 30px;
+  width: 100%;
+}
+
+.barHealthTwo {
+  position: absolute;
+  background: blue;
+  border: red solid 5px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.relative {
+  position: relative;
+  height: 30px;
+  width: 100%;
+}
+/* TIMER */
 
 .timer {
   background-color: red;
@@ -29,30 +75,35 @@
   flex-shrink: 0;
 }
 
-.playerTwoHealth {
-  background-color: yellow;
-  height: 30px;
-  width: 100%;
-}
+/* MODAL */
 
-.absolute {
+#exemple {
+  visibility: hidden;
   position: absolute;
-  background: blue;
-}
-
-.relative {
-  position: relative;
-  height: 30px;
+  left: 0;
+  top: 0;
   width: 100%;
+  height: 100%;
+  text-align: center;
+  z-index: 1000;
 }
-
-.absolute2 {
+#exemple div {
+  width: 350px;
+  height: 80px;
+  margin: 100px auto;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  border: 3px solid #cccccc;
   position: absolute;
-  background: blue;
-}
-
-.relative2 {
-  position: relative;
-  height: 30px;
-  width: 100%;
+  left: 50%;
+  top: 100px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
 }

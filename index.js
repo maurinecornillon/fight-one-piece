@@ -1,19 +1,42 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 1180;
-canvas.height = 526;
+canvas.width = 1440;
+canvas.height = 800;
 const gravity = 0.4;
 
 ///////
+
+class Sprite {
+  constructor({ position, image }) {
+    this.position = position;
+    this.height = 150;
+    this.width = 50;
+    this.image = new Image();
+    this.image.src = image;
+  }
+  draw() {
+    ctx.drawImage(this.image, this.position.x, this.position.y);
+  }
+  update() {
+    this.draw();
+  }
+}
+const background = new Sprite({
+  position: { x: 0, y: 0 },
+  image: "../assets/onepiece.jpg",
+});
+
 ////// CREATE PLAYERS
 class Players {
-  constructor({ position, speedy, color = "red", offset }) {
+  constructor({ position, speedy, color = "red", offset, image }) {
     this.position = position;
     this.speedy = speedy;
     this.height = 150;
     this.width = 50;
     this.health = 100;
+    this.image = new Image();
+    this.image.src = image;
     // CREATE ATTACK
     this.attackBox = {
       position: {
@@ -26,9 +49,11 @@ class Players {
     };
     this.color = color;
     this.attackActivate = false;
+    this.change = false;
   }
   draw() {
     // DRAW PLAYERS
+
     ctx.fillStyle = this.color;
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 
@@ -69,6 +94,7 @@ const playerOne = new Players({
   position: { x: 10, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 0, y: 0 },
+  image: "../assets/Luffy.png",
 });
 
 //PLAYERTWO
@@ -76,13 +102,15 @@ const playerTwo = new Players({
   position: { x: 800, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 50, y: 0 },
-  color: "purple",
+  image: "../assets/Zoro.png",
 });
 
+//////////////// ANIMATE //////////////
 function animate() {
   window.requestAnimationFrame(animate);
   ctx.fillStyle = "green";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+  background.update();
   playerOne.update();
   playerTwo.update();
 
@@ -117,6 +145,7 @@ function animate() {
   }
 
   // GAME OVER AND WIN
+
   if (playerOne.health === 0) {
     console.log("PLAYERONE LOST");
     console.log("PLAYERTWO WIN");
@@ -134,11 +163,11 @@ animate();
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "d":
-      if (playerOne.position.x <= canvas.width - 140) playerOne.speedy.x = 5;
+      playerOne.speedy.x = 5;
+
       break;
     case "q":
-      if (playerOne.position.x >= 30) playerOne.speedy.x = -5;
-
+      playerOne.speedy.x = -5;
       break;
     case "e":
       playerOne.speedy.y = -10;
