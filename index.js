@@ -4,6 +4,7 @@ const ctx = canvas.getContext("2d");
 canvas.width = 1000;
 canvas.height = 600;
 const gravity = 0.4;
+let gameFrames = 0;
 
 //CLASSES
 /////// SPRITE
@@ -11,13 +12,19 @@ const gravity = 0.4;
 class Sprite {
   constructor({ position, image }) {
     this.position = position;
-    this.height = 150;
-    this.width = 50;
+    this.height = 1000;
+    this.width = 600;
     this.image = new Image();
     this.image.src = image;
   }
   draw() {
-    ctx.drawImage(this.image, this.position.x, this.position.y);
+    ctx.drawImage(
+      this.image,
+      this.position.x,
+      this.position.y,
+      this.height,
+      this.width
+    );
   }
 
   update() {
@@ -28,42 +35,59 @@ class Sprite {
 ////// BACKGROUND
 const background = new Sprite({
   position: { x: 0, y: 0 },
-  image: "../assets/onepiece.jpg",
+  image: "../assets/scene-pirateship.png",
 });
 
 ////// CREATE PLAYERS
 class Players {
-  constructor({ position, speedy, color = "red", offset, image }) {
+  constructor({ position, speedy, offset, image }) {
     this.position = position;
     this.speedy = speedy;
-    this.height = 150;
-    this.width = 50;
+    this.height = 300;
+    this.width = 250;
     this.health = 100;
     this.image = new Image();
     this.image.src = image;
+    this.offsetX = 195;
+    this.offsetY = 0;
+    this.imageHeigth = 230;
+    this.maxFrames = 3;
+    this.frames = 0;
+
     // CREATE ATTACK
     this.attackBox = {
       position: {
         x: this.position.x,
         y: this.position.y,
       },
-      width: 100,
-      height: 100,
+      width: 250,
+      height: 300,
       offset: offset,
     };
 
-    this.color = color;
     this.attackActivate = false;
     this.change = false;
   }
   draw() {
     // DRAW PLAYERS
 
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-    ctx.stroke();
+    // ctx.drawImage(
+    //   image,
+    //   sx,
+    //   sy,
+    //   sLargeur,
+    //   sHauteur,
+    //   dx,
+    //   dy,
+    //   dLargeur,
+    //   dHauteur
+    // );
     ctx.drawImage(
       this.image,
+      this.offsetX * this.frames,
+      this.offsetY,
+      this.offsetX,
+      this.imageHeigth,
       this.position.x,
       this.position.y,
       this.width,
@@ -71,21 +95,18 @@ class Players {
     );
 
     // DRAW ATTACK BOX
-    if (this.attackActivate) {
-      ctx.fillRect(
-        this.attackBox.position.x,
-        this.attackBox.position.y,
-        this.attackBox.height,
-        this.attackBox.width
-      );
-    }
+    //   if (this.attackActivate) {
+    //     ctx.fillRect(
+    //       this.attackBox.position.x,
+    //       this.attackBox.position.y,
+    //       this.attackBox.height,
+    //       this.attackBox.width
+    //     );
+    //   }
   }
 
   update() {
-    // if (frameId % 50 === 0) {
-    //   playerOne.spriteFrame = (playerOne.spriteFrame + 1) % 5;
-    //   console.log(playerOne.spriteFrame);
-    // }
+    this.frames %= this.maxFrames;
     this.draw();
     // POSITION ATTACKBOX
     this.attackBox.position.x = this.position.x - this.attackBox.offset.x;
@@ -108,10 +129,10 @@ class Players {
 
 // PLAYERONE
 const playerOne = new Players({
-  position: { x: 100, y: 0 },
+  position: { x: 0, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 0, y: 0 },
-  image: "./assets/Luffy.png",
+  image: "./assets/Luffysprites.png",
 });
 
 // PLAYERTWO
@@ -119,18 +140,34 @@ const playerTwo = new Players({
   position: { x: 800, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 50, y: 0 },
-  image: "./assets/Luffy.png",
+  image: "./assets/Zoro.png",
 });
 
 //////////////// ANIMATE //////////////
+let time = 60;
+
+function timer() {
+  setTimeout(timer, 1000);
+  if (time > 0) {
+    time--;
+    document.querySelector("#timer").innerHTML = time;
+    console.log(time);
+  }
+}
+timer();
+
+//////////////// ANIMATE //////////////
 function animate() {
-  requestAnimationFrame(animate);
+  gameFrames = requestAnimationFrame(animate);
+  if (gameFrames % 10 === 0) {
+    playerOne.frames++;
+  }
+  // setInterval(() => {
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   background.update();
   playerOne.update();
   playerTwo.update();
-
   // ATTACK PLAYERONE AGAIN PLAYERTWO
   if (
     playerOne.attackBox.position.x + playerOne.attackBox.width >=
@@ -141,7 +178,7 @@ function animate() {
     playerOne.attackBox.position.y <= playerTwo.position.y + playerTwo.height &&
     playerOne.attackActivate
   ) {
-    playerTwo.health -= 5;
+    playerTwo.health -= 2;
     document.querySelector("#playerTwoHealth").style.width =
       playerTwo.health + "% ";
   }
@@ -156,7 +193,7 @@ function animate() {
     playerTwo.attackBox.position.y <= playerOne.position.y + playerOne.height &&
     playerTwo.attackActivate
   ) {
-    playerTwo.health -= 5;
+    playerTwo.health -= 2;
     document.querySelector("#playerOneHealth").style.width =
       playerTwo.health + "% ";
   }
@@ -171,6 +208,7 @@ function animate() {
     console.log("PLAYERTWO LOST");
     console.log("PLAYERONE WIN");
   }
+  // }, 500);
 }
 
 animate();
@@ -181,13 +219,18 @@ window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "d":
       playerOne.speedy.x = 5;
-
+      playerOne.maxFrames = 1;
+      playerOne.offsetY = 250;
+      playerOne.offsetX = 250;
       break;
     case "q":
       playerOne.speedy.x = -5;
       break;
     case "e":
       playerOne.speedy.y = -10;
+      playerOne.maxFrames = 3;
+      playerOne.offsetY = 600;
+
       break;
     case "k":
       playerTwo.speedy.x = -5;
@@ -200,6 +243,9 @@ window.addEventListener("keydown", (event) => {
       break;
     case " ":
       playerOne.attack();
+      playerOne.maxFrames = 2;
+      playerOne.offsetY = 900;
+      playerOne.offsetX = 195;
       break;
     case "j":
       playerTwo.attack();
@@ -211,12 +257,17 @@ window.addEventListener("keyup", (event) => {
   switch (event.key) {
     case "d":
       playerOne.speedy.x = 0;
+      playerOne.maxFrames = 3;
+      playerOne.offsetY = 0;
+      playerOne.offsetX = 195;
       break;
     case "q":
       playerOne.speedy.x = 0;
       break;
     case "e":
       playerOne.speedy.y = 0;
+      playerOne.maxFrames = 3;
+      playerOne.offsetY = 0;
       break;
     case "k":
       playerTwo.speedy.x = 0;
@@ -229,6 +280,9 @@ window.addEventListener("keyup", (event) => {
       break;
     case " ":
       playerOne.attackActivate = false;
+      playerOne.maxFrames = 3;
+      playerOne.offsetY = 0;
+      playerOne.offsetX = 195;
       break;
     case "j":
       playerTwo.attackActivate = false;
