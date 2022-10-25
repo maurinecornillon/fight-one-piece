@@ -4,6 +4,19 @@
   padding: 0;
 }
 
+body {
+  background-image: url("/assets/MV5BOTgxMjczZDktNWE4Zi00YjE2LWJjNGQtZjJlZDEyMjg1ODhmXkEyXkFqcGdeQXVyNzgxMzc3OTc@._V1_.jpg");
+  background-size: 100%;
+}
+
+.container-canvas {
+  width: 1400px;
+  /* border: red 5px solid; */
+  display: flex;
+  padding: 80px;
+  justify-content: center;
+}
+
 .container {
   position: relative;
   display: inline-block;

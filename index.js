@@ -1,11 +1,12 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 1440;
-canvas.height = 800;
+canvas.width = 1000;
+canvas.height = 600;
 const gravity = 0.4;
 
-///////
+//CLASSES
+/////// SPRITE
 
 class Sprite {
   constructor({ position, image }) {
@@ -18,10 +19,13 @@ class Sprite {
   draw() {
     ctx.drawImage(this.image, this.position.x, this.position.y);
   }
+
   update() {
     this.draw();
   }
 }
+
+////// BACKGROUND
 const background = new Sprite({
   position: { x: 0, y: 0 },
   image: "../assets/onepiece.jpg",
@@ -47,6 +51,7 @@ class Players {
       height: 100,
       offset: offset,
     };
+
     this.color = color;
     this.attackActivate = false;
     this.change = false;
@@ -56,10 +61,17 @@ class Players {
 
     ctx.fillStyle = this.color;
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    ctx.stroke();
+    ctx.drawImage(
+      this.image,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+    );
 
     // DRAW ATTACK BOX
     if (this.attackActivate) {
-      ctx.fillStyle = this.color;
       ctx.fillRect(
         this.attackBox.position.x,
         this.attackBox.position.y,
@@ -68,7 +80,12 @@ class Players {
       );
     }
   }
+
   update() {
+    // if (frameId % 50 === 0) {
+    //   playerOne.spriteFrame = (playerOne.spriteFrame + 1) % 5;
+    //   console.log(playerOne.spriteFrame);
+    // }
     this.draw();
     // POSITION ATTACKBOX
     this.attackBox.position.x = this.position.x - this.attackBox.offset.x;
@@ -91,24 +108,24 @@ class Players {
 
 // PLAYERONE
 const playerOne = new Players({
-  position: { x: 10, y: 0 },
+  position: { x: 100, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 0, y: 0 },
-  image: "../assets/Luffy.png",
+  image: "./assets/Luffy.png",
 });
 
-//PLAYERTWO
+// PLAYERTWO
 const playerTwo = new Players({
   position: { x: 800, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 50, y: 0 },
-  image: "../assets/Zoro.png",
+  image: "./assets/Luffy.png",
 });
 
 //////////////// ANIMATE //////////////
 function animate() {
-  window.requestAnimationFrame(animate);
-  ctx.fillStyle = "green";
+  requestAnimationFrame(animate);
+  ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   background.update();
   playerOne.update();
