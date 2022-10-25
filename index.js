@@ -60,8 +60,8 @@ class Players {
         x: this.position.x,
         y: this.position.y,
       },
-      width: 250,
-      height: 300,
+      width: this.width,
+      height: this.height,
       offset: offset,
     };
 
@@ -95,14 +95,14 @@ class Players {
     );
 
     // DRAW ATTACK BOX
-    //   if (this.attackActivate) {
-    //     ctx.fillRect(
-    //       this.attackBox.position.x,
-    //       this.attackBox.position.y,
-    //       this.attackBox.height,
-    //       this.attackBox.width
-    //     );
-    //   }
+    // if (this.attackActivate) {
+    //   ctx.fillRect(
+    //     this.attackBox.position.x,
+    //     this.attackBox.position.y,
+    //     this.attackBox.height,
+    //     this.attackBox.width
+    //   );
+    // }
   }
 
   update() {
@@ -151,7 +151,31 @@ function timer() {
   if (time > 0) {
     time--;
     document.querySelector("#timer").innerHTML = time;
-    console.log(time);
+
+    // GAME OVER AND WIN
+    if (time === 0) {
+      if (playerOne.health === playerTwo.health) {
+        document.querySelector("#modal").innerHTML = "LUFFY ZORO <3";
+        document.querySelector("#modal").style.display = "flex";
+      }
+      if (playerOne.health > playerTwo.health) {
+        document.querySelector("#modal").innerHTML = "Luffy Winner";
+        document.querySelector("#modal").style.display = "flex";
+      }
+      if (playerTwo.health > playerOne.health) {
+        document.querySelector("#modal").innerHTML = "Zoro Winner";
+        document.querySelector("#modal").style.display = "flex";
+      }
+    } else if (time > 0) {
+      if (playerTwo.health === 0) {
+        document.querySelector("#modal").innerHTML = "Luffy Winner";
+        document.querySelector("#modal").style.display = "flex";
+      }
+      if (playerOne.health === 0) {
+        document.querySelector("#modal").innerHTML = "Zoro Winner";
+        document.querySelector("#modal").style.display = "flex";
+      }
+    }
   }
 }
 timer();
@@ -197,18 +221,6 @@ function animate() {
     document.querySelector("#playerOneHealth").style.width =
       playerTwo.health + "% ";
   }
-
-  // GAME OVER AND WIN
-
-  if (playerOne.health === 0) {
-    console.log("PLAYERONE LOST");
-    console.log("PLAYERTWO WIN");
-  }
-  if (playerTwo.health === 0) {
-    console.log("PLAYERTWO LOST");
-    console.log("PLAYERONE WIN");
-  }
-  // }, 500);
 }
 
 animate();
