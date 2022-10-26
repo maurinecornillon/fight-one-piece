@@ -43,15 +43,15 @@ class Players {
   constructor({ position, speedy, offset, image }) {
     this.position = position;
     this.speedy = speedy;
-    this.height = 300;
-    this.width = 250;
-    this.health = 100;
+    this.height = 250;
+    this.width = 90;
     this.image = new Image();
     this.image.src = image;
-    this.offsetX = 195;
+    this.offsetX = 36;
     this.offsetY = 0;
-    this.imageHeigth = 230;
-    this.maxFrames = 3;
+    this.health = 100;
+    this.imageHeigth = 80;
+    this.maxFrames = 9;
     this.frames = 0;
 
     // CREATE ATTACK
@@ -108,9 +108,11 @@ class Players {
   update() {
     this.frames %= this.maxFrames;
     this.draw();
+
     // POSITION ATTACKBOX
     this.attackBox.position.x = this.position.x - this.attackBox.offset.x;
     this.attackBox.position.y = this.position.y;
+
     // MOUVEMENT & VITESSE PLAYERS
     this.position.x += this.speedy.x;
     this.position.y += this.speedy.y;
@@ -129,10 +131,10 @@ class Players {
 
 // PLAYERONE
 const playerOne = new Players({
-  position: { x: 0, y: 0 },
+  position: { x: 200, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 0, y: 0 },
-  image: "./assets/Luffysprites.png",
+  image: "./assets/TestLuffy.png",
 });
 
 // PLAYERTWO
@@ -140,7 +142,7 @@ const playerTwo = new Players({
   position: { x: 800, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 50, y: 0 },
-  image: "./assets/Zoro.png",
+  image: "./assets/TestLuffy.png",
 });
 
 //////////////// ANIMATE //////////////
@@ -152,29 +154,17 @@ function timer() {
     time--;
     document.querySelector("#timer").innerHTML = time;
 
-    // GAME OVER AND WIN
-    if (time === 0) {
-      if (playerOne.health === playerTwo.health) {
-        document.querySelector("#modal").innerHTML = "LUFFY ZORO <3";
-        document.querySelector("#modal").style.display = "flex";
-      }
-      if (playerOne.health > playerTwo.health) {
-        document.querySelector("#modal").innerHTML = "Luffy Winner";
-        document.querySelector("#modal").style.display = "flex";
-      }
-      if (playerTwo.health > playerOne.health) {
-        document.querySelector("#modal").innerHTML = "Zoro Winner";
-        document.querySelector("#modal").style.display = "flex";
-      }
-    } else if (time > 0) {
-      if (playerTwo.health === 0) {
-        document.querySelector("#modal").innerHTML = "Luffy Winner";
-        document.querySelector("#modal").style.display = "flex";
-      }
-      if (playerOne.health === 0) {
-        document.querySelector("#modal").innerHTML = "Zoro Winner";
-        document.querySelector("#modal").style.display = "flex";
-      }
+    // GAME OVER AND WIN IF TIME IS OVER
+  }
+  if (time === 0) {
+    if (playerOne.health === playerTwo.health) {
+      document.querySelector("#modal").style.display = "flex";
+    }
+    if (playerOne.health >= playerTwo.health) {
+      document.querySelector("#modal").style.display = "flex";
+    }
+    if (playerTwo.health >= playerOne.health) {
+      document.querySelector("#modal2").style.display = "flex";
     }
   }
 }
@@ -185,6 +175,7 @@ function animate() {
   gameFrames = requestAnimationFrame(animate);
   if (gameFrames % 10 === 0) {
     playerOne.frames++;
+    playerTwo.frames++;
   }
   // setInterval(() => {
   ctx.fillStyle = "white";
@@ -192,6 +183,7 @@ function animate() {
   background.update();
   playerOne.update();
   playerTwo.update();
+
   // ATTACK PLAYERONE AGAIN PLAYERTWO
   if (
     playerOne.attackBox.position.x + playerOne.attackBox.width >=
@@ -217,9 +209,20 @@ function animate() {
     playerTwo.attackBox.position.y <= playerOne.position.y + playerOne.height &&
     playerTwo.attackActivate
   ) {
-    playerTwo.health -= 2;
+    playerOne.health -= 2;
     document.querySelector("#playerOneHealth").style.width =
-      playerTwo.health + "% ";
+      playerOne.health + "% ";
+  }
+
+  // GAME OVER
+
+  if (playerTwo.health === 0) {
+    document.querySelector("#modal").style.display = "flex";
+    time = 0;
+  }
+  if (playerOne.health === 0) {
+    document.querySelector("#modal2").style.display = "flex";
+    time = 0;
   }
 }
 
@@ -231,17 +234,17 @@ window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "d":
       playerOne.speedy.x = 5;
-      playerOne.maxFrames = 1;
-      playerOne.offsetY = 250;
-      playerOne.offsetX = 250;
+      // playerOne.maxFrames = 1;
+      // playerOne.offsetY = 250;
+      // playerOne.offsetX = 250;
       break;
     case "q":
       playerOne.speedy.x = -5;
       break;
     case "e":
       playerOne.speedy.y = -10;
-      playerOne.maxFrames = 3;
-      playerOne.offsetY = 600;
+      // playerOne.maxFrames = 3;
+      // playerOne.offsetY = 600;
 
       break;
     case "k":
@@ -256,8 +259,8 @@ window.addEventListener("keydown", (event) => {
     case " ":
       playerOne.attack();
       playerOne.maxFrames = 2;
-      playerOne.offsetY = 900;
-      playerOne.offsetX = 195;
+      // playerOne.offsetY = 900;
+      // playerOne.offsetX = 195;
       break;
     case "j":
       playerTwo.attack();
