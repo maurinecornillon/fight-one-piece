@@ -142,7 +142,7 @@ const playerTwo = new Players({
   position: { x: 800, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 50, y: 0 },
-  image: "./assets/TestLuffy.png",
+  image: "./assets/TestZoro.png",
 });
 
 //////////////// ANIMATE //////////////
