@@ -243,13 +243,19 @@ window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "d":
       playerOne.speedy.x = 4;
-      playerOne.maxFrames = 8;
+      playerOne.offsetX = 52;
       playerOne.offsetY = 0;
-      playerOne.offsetX = 180;
-      playerOne.imageHeight = 400;
+      playerOne.imageHeight = 80;
+      playerOne.maxFrames = 8;
+      playerOne.originX = 390;
       break;
     case "q":
       playerOne.speedy.x = -5;
+      playerOne.offsetX = 53;
+      playerOne.offsetY = 0;
+      playerOne.imageHeight = 80;
+      playerOne.maxFrames = 8;
+      playerOne.originX = 385;
       break;
     case "e":
       playerOne.speedy.y = -10;
@@ -297,18 +303,21 @@ window.addEventListener("keyup", (event) => {
       playerOne.maxFrames = 3;
       playerOne.offsetY = 0;
       playerOne.offsetX = 43;
+      playerOne.originX = 0;
       break;
     case "q":
       playerOne.speedy.x = 0;
       playerOne.maxFrames = 3;
       playerOne.offsetY = 0;
       playerOne.offsetX = 43;
+      playerOne.originX = 0;
       break;
     case "e":
       playerOne.speedy.y = 0;
       playerOne.maxFrames = 3;
       playerOne.offsetY = 0;
       playerOne.offsetX = 43;
+      playerOne.originX = 0;
       break;
     case "k":
       playerTwo.speedy.x = 0;
