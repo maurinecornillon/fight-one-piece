@@ -16,7 +16,7 @@
 }
 
 body {
-  background-image: url("/assets/BackgroundRain.webp");
+  background-image: url("./assets/BackgroundRain.webp");
   background-size: 100%;
 }
 
@@ -130,7 +130,7 @@ body {
   left: 0;
   display: none;
   background-color: black;
-  background-image: url("/assets/pngegg.png");
+  background-image: url("./assets/pngegg.png");
   background-position: center;
   background-size: 1200px;
   width: 1440px;
@@ -177,7 +177,7 @@ body {
   left: 0;
   display: none;
   background-color: black;
-  background-image: url("/assets/pngegg.png");
+  background-image: url("./assets/pngegg.png");
   background-position: center;
   background-size: 1200px;
   width: 1440px;
