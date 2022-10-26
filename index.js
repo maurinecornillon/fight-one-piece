@@ -40,18 +40,29 @@ const background = new Sprite({
 
 ////// CREATE PLAYERS
 class Players {
-  constructor({ position, speedy, offset, image }) {
+  constructor({
+    position,
+    speedy,
+    offset,
+    image,
+    offsetX,
+    offsetY,
+    imageHeight,
+    maxFrames,
+    originX = 0,
+  }) {
     this.position = position;
     this.speedy = speedy;
     this.height = 250;
-    this.width = 90;
+    this.width = 100;
     this.image = new Image();
     this.image.src = image;
-    this.offsetX = 36;
-    this.offsetY = 0;
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
+    this.originX = originX;
     this.health = 100;
-    this.imageHeigth = 80;
-    this.maxFrames = 9;
+    this.imageHeigth = imageHeight;
+    this.maxFrames = maxFrames;
     this.frames = 0;
 
     // CREATE ATTACK
@@ -70,21 +81,11 @@ class Players {
   }
   draw() {
     // DRAW PLAYERS
+    // (image, sx, sy, sLargeur, sHauteur, dx, dy, dLargeur, dHauteur);
 
-    // ctx.drawImage(
-    //   image,
-    //   sx,
-    //   sy,
-    //   sLargeur,
-    //   sHauteur,
-    //   dx,
-    //   dy,
-    //   dLargeur,
-    //   dHauteur
-    // );
     ctx.drawImage(
       this.image,
-      this.offsetX * this.frames,
+      this.originX + this.offsetX * this.frames,
       this.offsetY,
       this.offsetX,
       this.imageHeigth,
@@ -123,7 +124,7 @@ class Players {
       this.speedy.y += gravity;
     }
   }
-  // WHEN THIS FUNCTION IS CALL, ITS TRUE
+
   attack() {
     this.attackActivate = true;
   }
@@ -134,6 +135,10 @@ const playerOne = new Players({
   position: { x: 200, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 0, y: 0 },
+  offsetX: 43,
+  offsetY: 0,
+  imageHeight: 80,
+  maxFrames: 3,
   image: "./assets/TestLuffy.png",
 });
 
@@ -142,6 +147,10 @@ const playerTwo = new Players({
   position: { x: 800, y: 0 },
   speedy: { x: 0, y: 0 },
   offset: { x: 50, y: 0 },
+  offsetX: 49,
+  offsetY: 100,
+  imageHeight: 78,
+  maxFrames: 4,
   image: "./assets/TestZoro.png",
 });
 
@@ -158,7 +167,7 @@ function timer() {
   }
   if (time === 0) {
     if (playerOne.health === playerTwo.health) {
-      document.querySelector("#modal").style.display = "flex";
+      document.querySelector("#modal3").style.display = "flex";
     }
     if (playerOne.health >= playerTwo.health) {
       document.querySelector("#modal").style.display = "flex";
@@ -177,7 +186,7 @@ function animate() {
     playerOne.frames++;
     playerTwo.frames++;
   }
-  // setInterval(() => {
+
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   background.update();
@@ -233,37 +242,50 @@ animate();
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "d":
-      playerOne.speedy.x = 5;
-      // playerOne.maxFrames = 1;
-      // playerOne.offsetY = 250;
-      // playerOne.offsetX = 250;
+      playerOne.speedy.x = 4;
+      playerOne.maxFrames = 8;
+      playerOne.offsetY = 0;
+      playerOne.offsetX = 180;
+      playerOne.imageHeight = 400;
       break;
     case "q":
       playerOne.speedy.x = -5;
       break;
     case "e":
       playerOne.speedy.y = -10;
-      // playerOne.maxFrames = 3;
-      // playerOne.offsetY = 600;
-
       break;
     case "k":
       playerTwo.speedy.x = -5;
+      playerTwo.offsetX = 61;
+      playerTwo.offsetY = 100;
+      playerTwo.imageHeight = 78;
+      playerTwo.maxFrames = 8;
+      playerTwo.originX = 240;
       break;
     case "i":
       playerTwo.speedy.y = -10;
       break;
     case "m":
       playerTwo.speedy.x = 5;
+      playerTwo.offsetX = 61;
+      playerTwo.offsetY = 100;
+      playerTwo.imageHeight = 78;
+      playerTwo.maxFrames = 8;
+      playerTwo.originX = 240;
+
       break;
     case " ":
       playerOne.attack();
       playerOne.maxFrames = 2;
-      // playerOne.offsetY = 900;
-      // playerOne.offsetX = 195;
+
       break;
     case "j":
       playerTwo.attack();
+      playerTwo.offsetX = 65;
+      playerTwo.offsetY = 1060;
+      playerTwo.imageHeight = 78;
+      playerTwo.maxFrames = 9;
+
       break;
   }
 });
@@ -274,33 +296,51 @@ window.addEventListener("keyup", (event) => {
       playerOne.speedy.x = 0;
       playerOne.maxFrames = 3;
       playerOne.offsetY = 0;
-      playerOne.offsetX = 195;
+      playerOne.offsetX = 43;
       break;
     case "q":
       playerOne.speedy.x = 0;
+      playerOne.maxFrames = 3;
+      playerOne.offsetY = 0;
+      playerOne.offsetX = 43;
       break;
     case "e":
       playerOne.speedy.y = 0;
       playerOne.maxFrames = 3;
       playerOne.offsetY = 0;
+      playerOne.offsetX = 43;
       break;
     case "k":
       playerTwo.speedy.x = 0;
+      playerTwo.offsetX = 49;
+      playerTwo.offsetY = 100;
+      playerTwo.imageHeight = 78;
+      playerTwo.maxFrames = 4;
+      playerTwo.originX = 0;
       break;
     case "i":
       playerTwo.speedy.y = 0;
       break;
     case "m":
       playerTwo.speedy.x = 0;
+      playerTwo.offsetX = 49;
+      playerTwo.offsetY = 100;
+      playerTwo.imageHeight = 78;
+      playerTwo.maxFrames = 4;
+      playerTwo.originX = 0;
+
       break;
     case " ":
       playerOne.attackActivate = false;
       playerOne.maxFrames = 3;
       playerOne.offsetY = 0;
-      playerOne.offsetX = 195;
+      playerOne.offsetX = 43;
       break;
     case "j":
       playerTwo.attackActivate = false;
+      playerTwo.offsetX = 49;
+      playerTwo.offsetY = 100;
+      playerTwo.maxFrames = 4;
       break;
   }
 });

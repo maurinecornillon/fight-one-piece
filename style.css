@@ -209,3 +209,51 @@ body {
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
 }
+
+.modal3 {
+  color: white;
+  font-size: 70px;
+
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: none;
+  background-color: black;
+  background-image: url("./assets/pngegg.png");
+  background-position: center;
+  background-size: 1200px;
+  width: 1440px;
+  height: 790px;
+  font-family: "ONE-PIECE";
+}
+
+.modal3 img {
+  height: 300px;
+  padding: 20px;
+}
+
+.modal3 a {
+  font-size: 60px;
+  text-decoration: none;
+  color: white;
+  background-color: red;
+  width: 300px;
+  text-align: center;
+  border-radius: 20px;
+  font-family: "ONE-PIECE";
+  margin-top: 50px;
+  transition: transform 1s;
+}
+
+.modal3 a:hover {
+  cursor: pointer;
+  -ms-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
