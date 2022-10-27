@@ -15,7 +15,7 @@
   padding: 0;
 }
 
-body {
+.body-game {
   background-image: url("./assets/BackgroundRain.webp");
   background-size: 100%;
 }
