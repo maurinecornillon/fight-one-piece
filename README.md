@@ -7,6 +7,7 @@ When we discovered canvas and all these possibilities I wanted to challenge myse
 # Features
 
  * Animation of the characters : Idle, Run, Jump, Attack with sprites and canvas
+ * AttackBox
  * Timer with setTimeout()
  * Health Bar
 
