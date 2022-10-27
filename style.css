@@ -258,3 +258,60 @@ body {
   -webkit-transform: scale(1.2);
   transform: scale(1.2);
 }
+
+/* HOME */
+
+.body {
+  background-image: url("/assets/monkey_d__luffy_roronoa_zoro_thousand_sunny_4k_hd_one_piece-1600x900.jpeg");
+  background-size: 100%;
+}
+
+h1 {
+  font-family: "ONE-PIECE";
+  font-size: 200px;
+}
+
+.container-start {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  font-size: 90px;
+  text-decoration: none;
+  color: white;
+  background-color: red;
+  width: 300px;
+  text-align: center;
+  border-radius: 20px;
+  font-family: "ONE-PIECE";
+  margin-top: 80px;
+  transition: transform 1s;
+  box-shadow: 6px 5px 5px black;
+}
+
+a:hover {
+  cursor: pointer;
+  -ms-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.rules {
+  display: flex;
+  width: 100%;
+  font-family: "ONE-PIECE";
+  font-size: 50px;
+  justify-content: space-around;
+}
+
+.rules p {
+  background-color: beige;
+  opacity: 0.5;
+  width: 20%;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 10px 5px 5px black;
+}
