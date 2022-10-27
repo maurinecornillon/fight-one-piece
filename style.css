@@ -16,7 +16,7 @@
 }
 
 body {
-  background-image: url("./assets/MV5BOTgxMjczZDktNWE4Zi00YjE2LWJjNGQtZjJlZDEyMjg1ODhmXkEyXkFqcGdeQXVyNzgxMzc3OTc@._V1_.jpg");
+  background-image: url("./assets/BackgroundRain.webp");
   background-size: 100%;
 }
 
@@ -50,6 +50,7 @@ body {
 
 .playerOneHealth {
   background-color: white;
+  opacity: 0.6;
   clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 16% 100%, 0 0);
   height: 30px;
   width: 100%;
