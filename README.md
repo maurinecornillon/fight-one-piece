@@ -6,14 +6,14 @@ When we discovered canvas and all these possibilities I wanted to challenge myse
 
 # Features
 
- Animation of the characters : Idle, Run, Jump, Attack with sprites and canvas
- Timer with setTimeout()
- Health Bar
+ * Animation of the characters : Idle, Run, Jump, Attack with sprites and canvas
+ * Timer with setTimeout()
+ * Health Bar
 
 
 # What's next ?
 
-Clean my code and structure it
-Clean my animation
-Possibility to choose other characters 
-Add sound 
+* Clean my code and structure it
+* Clean my animation
+* Possibility to choose other characters 
+* Add sound 
