@@ -262,7 +262,7 @@
 /* HOME */
 
 .body {
-  background-image: url("/assets/LuffyAffiche.jpeg");
+  background-image: url("./assets/backgroundhome.jpeg");
   background-size: 100%;
 }
 
