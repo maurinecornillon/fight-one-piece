@@ -7,6 +7,7 @@ const gravity = 0.4;
 let gameFrames = 0;
 
 //CLASSES
+
 /////// SPRITE
 
 class Sprite {
@@ -32,13 +33,15 @@ class Sprite {
   }
 }
 
-////// BACKGROUND
+/////// BACKGROUND
+
 const background = new Sprite({
   position: { x: 0, y: 0 },
   image: "./assets/scene-pirateship.png",
 });
 
-////// CREATE PLAYERS
+/////// PLAYERS
+
 class Players {
   constructor({
     position,
@@ -66,6 +69,7 @@ class Players {
     this.frames = 0;
 
     // CREATE ATTACK
+
     this.attackBox = {
       position: {
         x: this.position.x,
@@ -94,16 +98,6 @@ class Players {
       this.width,
       this.height
     );
-
-    // DRAW ATTACK BOX
-    // if (this.attackActivate) {
-    //   ctx.fillRect(
-    //     this.attackBox.position.x,
-    //     this.attackBox.position.y,
-    //     this.attackBox.height,
-    //     this.attackBox.width
-    //   );
-    // }
   }
 
   update() {
@@ -111,10 +105,12 @@ class Players {
     this.draw();
 
     // POSITION ATTACKBOX
+
     this.attackBox.position.x = this.position.x - this.attackBox.offset.x;
     this.attackBox.position.y = this.position.y;
 
     // MOUVEMENT & VITESSE PLAYERS
+
     this.position.x += this.speedy.x;
     this.position.y += this.speedy.y;
 
@@ -130,7 +126,8 @@ class Players {
   }
 }
 
-// PLAYERONE
+/////// PLAYERONE
+
 const playerOne = new Players({
   position: { x: 200, y: 0 },
   speedy: { x: 0, y: 0 },
@@ -142,7 +139,8 @@ const playerOne = new Players({
   image: "./assets/TestLuffy.png",
 });
 
-// PLAYERTWO
+/////// PLAYERTWO
+
 const playerTwo = new Players({
   position: { x: 800, y: 0 },
   speedy: { x: 0, y: 0 },
@@ -154,7 +152,8 @@ const playerTwo = new Players({
   image: "./assets/TestZoro.png",
 });
 
-//////////////// ANIMATE //////////////
+//////////////// TIMER //////////////
+
 let time = 60;
 
 function timer() {
@@ -163,7 +162,7 @@ function timer() {
     time--;
     document.querySelector("#timer").innerHTML = time;
 
-    // GAME OVER AND WIN IF TIME IS OVER
+    // GAME OVER AND WIN IF TIME IS 0
   }
   if (time === 0) {
     if (playerOne.health === playerTwo.health) {
@@ -180,6 +179,7 @@ function timer() {
 timer();
 
 //////////////// ANIMATE //////////////
+
 function animate() {
   gameFrames = requestAnimationFrame(animate);
   if (gameFrames % 10 === 0) {
@@ -194,6 +194,7 @@ function animate() {
   playerTwo.update();
 
   // ATTACK PLAYERONE AGAIN PLAYERTWO
+
   if (
     playerOne.attackBox.position.x + playerOne.attackBox.width >=
       playerTwo.position.x &&
@@ -209,6 +210,7 @@ function animate() {
   }
 
   // ATTACK PLAYERTWO AGAIN PLAYERONE
+
   if (
     playerTwo.attackBox.position.x + playerTwo.attackBox.width >=
       playerOne.position.x &&
@@ -237,11 +239,13 @@ function animate() {
 
 animate();
 
-// KEY
+/////// KEY
 
 window.addEventListener("keydown", (event) => {
+  console.log(event.key);
   switch (event.key) {
     // LUFFY
+
     case "d":
       playerOne.speedy.x = 4;
       playerOne.offsetX = 52;
@@ -266,8 +270,10 @@ window.addEventListener("keydown", (event) => {
       playerOne.maxFrames = 7;
       playerTwo.originX = 0;
       break;
+
     // ZORO
-    case "k":
+
+    case "ArrowLeft":
       playerTwo.speedy.x = -5;
       playerTwo.offsetX = 61;
       playerTwo.offsetY = 100;
@@ -275,7 +281,7 @@ window.addEventListener("keydown", (event) => {
       playerTwo.maxFrames = 8;
       playerTwo.originX = 240;
       break;
-    case "i":
+    case "ArrowUp":
       playerTwo.speedy.y = -10;
       playerTwo.offsetX = 52;
       playerTwo.offsetY = 2910;
@@ -283,7 +289,7 @@ window.addEventListener("keydown", (event) => {
       playerTwo.maxFrames = 7;
       playerTwo.originX = 405;
       break;
-    case "m":
+    case "ArrowRight":
       playerTwo.speedy.x = 5;
       playerTwo.offsetX = 61;
       playerTwo.offsetY = 100;
@@ -291,21 +297,25 @@ window.addEventListener("keydown", (event) => {
       playerTwo.maxFrames = 8;
       playerTwo.originX = 240;
       break;
+
     //ATTACK
+
     case " ":
       playerOne.attack();
-      playerOne.offsetX = 43;
-      playerOne.offsetY = 85;
+      playerOne.offsetX = 64;
+      playerOne.offsetY = 76;
       playerOne.imageHeight = 80;
-      playerOne.maxFrames = 5;
-      playerTwo.originX = 10;
+      playerOne.maxFrames = 3;
+      playerOne.originX = 90;
+
       break;
-    case "j":
+    case "ArrowDown":
       playerTwo.attack();
-      playerTwo.offsetX = 65;
-      playerTwo.offsetY = 1060;
+      playerTwo.offsetX = 89;
+      playerTwo.offsetY = 1050;
       playerTwo.imageHeight = 78;
-      playerTwo.maxFrames = 9;
+      playerTwo.maxFrames = 5;
+      playerTwo.originX = 440;
 
       break;
   }
@@ -314,6 +324,7 @@ window.addEventListener("keydown", (event) => {
 window.addEventListener("keyup", (event) => {
   switch (event.key) {
     // LUFFY
+
     case "d":
       playerOne.speedy.x = 0;
       playerOne.maxFrames = 3;
@@ -335,8 +346,10 @@ window.addEventListener("keyup", (event) => {
       playerOne.offsetX = 43;
       playerOne.originX = 0;
       break;
+
     // ZORO
-    case "k":
+
+    case "ArrowLeft":
       playerTwo.speedy.x = 0;
       playerTwo.offsetX = 49;
       playerTwo.offsetY = 100;
@@ -344,7 +357,7 @@ window.addEventListener("keyup", (event) => {
       playerTwo.maxFrames = 4;
       playerTwo.originX = 0;
       break;
-    case "i":
+    case "ArrowUp":
       playerTwo.speedy.y = 0;
       playerTwo.offsetX = 49;
       playerTwo.offsetY = 100;
@@ -352,7 +365,7 @@ window.addEventListener("keyup", (event) => {
       playerTwo.maxFrames = 4;
       playerTwo.originX = 0;
       break;
-    case "m":
+    case "ArrowRight":
       playerTwo.speedy.x = 0;
       playerTwo.offsetX = 49;
       playerTwo.offsetY = 100;
@@ -360,18 +373,23 @@ window.addEventListener("keyup", (event) => {
       playerTwo.maxFrames = 4;
       playerTwo.originX = 0;
       break;
+
     //ATTACK
+
     case " ":
       playerOne.attackActivate = false;
       playerOne.maxFrames = 3;
       playerOne.offsetY = 0;
       playerOne.offsetX = 43;
+      playerOne.originX = 0;
       break;
-    case "j":
+    case "ArrowDown":
       playerTwo.attackActivate = false;
       playerTwo.offsetX = 49;
       playerTwo.offsetY = 100;
+      playerTwo.imageHeight = 78;
       playerTwo.maxFrames = 4;
+      playerTwo.originX = 0;
       break;
   }
 });
