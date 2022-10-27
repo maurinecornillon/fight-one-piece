@@ -35,7 +35,7 @@ class Sprite {
 ////// BACKGROUND
 const background = new Sprite({
   position: { x: 0, y: 0 },
-  image: "../assets/scene-pirateship.png",
+  image: "./assets/scene-pirateship.png",
 });
 
 ////// CREATE PLAYERS
