@@ -241,6 +241,7 @@ animate();
 
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
+    // LUFFY
     case "d":
       playerOne.speedy.x = 4;
       playerOne.offsetX = 52;
@@ -259,7 +260,13 @@ window.addEventListener("keydown", (event) => {
       break;
     case "e":
       playerOne.speedy.y = -10;
+      playerOne.offsetX = 40;
+      playerOne.offsetY = 1708;
+      playerOne.imageHeight = 80;
+      playerOne.maxFrames = 7;
+      playerTwo.originX = 0;
       break;
+    // ZORO
     case "k":
       playerTwo.speedy.x = -5;
       playerTwo.offsetX = 61;
@@ -270,6 +277,11 @@ window.addEventListener("keydown", (event) => {
       break;
     case "i":
       playerTwo.speedy.y = -10;
+      playerTwo.offsetX = 52;
+      playerTwo.offsetY = 2910;
+      playerTwo.imageHeight = 78;
+      playerTwo.maxFrames = 7;
+      playerTwo.originX = 405;
       break;
     case "m":
       playerTwo.speedy.x = 5;
@@ -278,12 +290,15 @@ window.addEventListener("keydown", (event) => {
       playerTwo.imageHeight = 78;
       playerTwo.maxFrames = 8;
       playerTwo.originX = 240;
-
       break;
+    //ATTACK
     case " ":
       playerOne.attack();
-      playerOne.maxFrames = 2;
-
+      playerOne.offsetX = 43;
+      playerOne.offsetY = 85;
+      playerOne.imageHeight = 80;
+      playerOne.maxFrames = 5;
+      playerTwo.originX = 10;
       break;
     case "j":
       playerTwo.attack();
@@ -298,6 +313,7 @@ window.addEventListener("keydown", (event) => {
 
 window.addEventListener("keyup", (event) => {
   switch (event.key) {
+    // LUFFY
     case "d":
       playerOne.speedy.x = 0;
       playerOne.maxFrames = 3;
@@ -319,6 +335,7 @@ window.addEventListener("keyup", (event) => {
       playerOne.offsetX = 43;
       playerOne.originX = 0;
       break;
+    // ZORO
     case "k":
       playerTwo.speedy.x = 0;
       playerTwo.offsetX = 49;
@@ -329,6 +346,11 @@ window.addEventListener("keyup", (event) => {
       break;
     case "i":
       playerTwo.speedy.y = 0;
+      playerTwo.offsetX = 49;
+      playerTwo.offsetY = 100;
+      playerTwo.imageHeight = 78;
+      playerTwo.maxFrames = 4;
+      playerTwo.originX = 0;
       break;
     case "m":
       playerTwo.speedy.x = 0;
@@ -337,8 +359,8 @@ window.addEventListener("keyup", (event) => {
       playerTwo.imageHeight = 78;
       playerTwo.maxFrames = 4;
       playerTwo.originX = 0;
-
       break;
+    //ATTACK
     case " ":
       playerOne.attackActivate = false;
       playerOne.maxFrames = 3;
